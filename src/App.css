@@ -42,6 +42,14 @@ body.dark .app-container {
   }
 }
 
+/* Responsive App Container */
+@media (max-width: 1100px) {
+  .app-container {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+}
+
 /* =========================
    Task Form Styling
 ========================= */
@@ -231,6 +239,18 @@ body.dark .app-container {
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
 }
 
+/* Responsive Task Form and Calendar */
+@media (max-width: 700px) {
+  .task-form,
+  .calendar-view {
+    padding: 1rem 0.5rem;
+    margin-bottom: 1rem;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
 /* =========================
    Dark Mode Styling
 ========================= */
@@ -356,33 +376,67 @@ body.dark .calendar-view {
   background: #232323;
 }
 
-/* Calendar tile hover and highlight */
-.react-calendar__tile--active,
-.react-calendar__tile--now {
-  background: #1976d2 !important;
-  color: #fff !important;
-  border-radius: 50% !important;
-  font-weight: bold;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
-  transition: background 0.2s;
+/* Responsive Kanban View */
+@media (max-width: 900px) {
+  .kanban-view {
+    gap: 1rem;
+  }
+  .kanban-column {
+    min-width: 160px;
+    max-width: 100%;
+    padding: 1rem 0.5rem;
+  }
 }
 
-body.dark .react-calendar__tile--active,
-body.dark .react-calendar__tile--now {
-  background: #90caf9 !important;
-  color: #232323 !important;
+@media (max-width: 600px) {
+  .kanban-view {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .kanban-column {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
 }
 
-.react-calendar__tile:hover {
-  background: #e3f2fd !important;
-  color: #1976d2 !important;
-  border-radius: 50% !important;
-  cursor: pointer;
+/* Responsive Header */
+@media (max-width: 600px) {
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding-bottom: 0.5rem;
+  }
+  .header-bar h1 {
+    font-size: 1.3rem;
+  }
 }
 
-body.dark .react-calendar__tile:hover {
-  background: #333 !important;
-  color: #90caf9 !important;
+/* Responsive Task List */
+@media (max-width: 600px) {
+  .task-list {
+    gap: 0.5rem;
+  }
+  .task-item, .kanban-card {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.97rem;
+  }
+}
+
+/* Responsive Task Filter */
+@media (max-width: 600px) {
+  .task-filter {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .task-filter input,
+  .task-filter select {
+    font-size: 0.97rem;
+    padding: 0.5rem;
+  }
 }
 
 /* Animate calendar appearance */
