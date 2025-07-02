@@ -48,12 +48,12 @@ const KanbanView = () => {
                     <Draggable key={task.id} draggableId={task.id} index={index}>
                       {(provided) => (
                         <div
-                          className="kanban-task"
+                          className="kanban-card"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <strong>{task.title}</strong>
+                          <span className="task-title">{task.title}</span>
                           {task.dueDate && (
                             <div className="due-date">
                               📅 {new Date(task.dueDate).toLocaleDateString()}

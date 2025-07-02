@@ -10,9 +10,11 @@ body {
 
 /* App container */
 .app-container {
+  width: 100%;
   max-width: 950px;
   margin: 2.5rem auto;
   padding: 2.5rem 1.5rem;
+  box-sizing: border-box;
   background: #fff;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
@@ -220,23 +222,34 @@ body.dark .app-container {
   gap: 1rem;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .task-filter input,
 .task-filter select {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
   width: 100%;
-  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+  box-sizing: border-box;
 }
 
-.task-filter input:focus,
-.task-filter select:focus {
-  outline: none;
-  border-color: #1976d2;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+/* Responsive Task Filter */
+@media (max-width: 600px) {
+  .task-filter {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+  .task-filter input,
+  .task-filter select {
+    width: 100%;
+    min-width: 0;
+    font-size: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+  }
 }
 
 /* Responsive Task Form and Calendar */
@@ -247,6 +260,50 @@ body.dark .app-container {
     margin-bottom: 1rem;
     min-width: 0;
     width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Ensure app container fits mobile screens */
+.app-container {
+  width: 100%;
+  max-width: 950px;
+  margin: 2.5rem auto;
+  padding: 2.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Make all form fields responsive */
+.task-form input,
+.task-form textarea,
+.task-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 0.5rem 0.2rem;
+    min-width: 0;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+  .task-form,
+  .calendar-view {
+    padding: 0.5rem 0.2rem;
+    margin-bottom: 1rem;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .task-form input,
+  .task-form textarea,
+  .task-form select {
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    min-width: 0;
     box-sizing: border-box;
   }
 }
@@ -299,6 +356,13 @@ body.dark,
   color: #f1f1f1;
 }
 
+body.dark .kanban-card {
+  background: #232323 !important;
+  color: #f1f1f1 !important;
+}
+
+
+
 /* =========================
    Calendar Dark Mode Fixes
 ========================= */
@@ -336,8 +400,11 @@ body.dark,
 }
 
 .dark .react-calendar__tile--active {
-  background: #444 !important;
-  color: #ffe082 !important;
+  background: #1976d2 !important;  /* Blue background */
+  color: #fff !important;           /* White text */
+  border-radius: 50% !important;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
 }
 
 .dark .react-calendar__tile--now {
@@ -431,11 +498,18 @@ body.dark .calendar-view {
   .task-filter {
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0 0 1rem 0;
   }
   .task-filter input,
   .task-filter select {
-    font-size: 0.97rem;
+    width: 100%;
+    min-width: 0;
+    font-size: 1rem;
     padding: 0.5rem;
+    box-sizing: border-box;
   }
 }
 
@@ -536,4 +610,10 @@ body.dark h2, body.dark h3, body.dark label {
 
 .task-item:active, .kanban-card:active {
   transform: scale(0.98);
+}
+
+.kanban-card .task-title {
+  color: #1976d2 !important;
+  font-weight: 700;
+  opacity: 1 !important;
 }
