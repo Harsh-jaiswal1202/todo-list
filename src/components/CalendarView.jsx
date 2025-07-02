@@ -1,32 +1,59 @@
-import React, { useContext } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import { TaskContext } from '../context/TaskContext';
-import { parseISO } from 'date-fns';
-import './CalendarView.css';
+import React from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
-const CalendarView = () => {
-  const { tasks } = useContext(TaskContext);
+const isSameDay = (d1, d2) =>
+  d1.getFullYear() === d2.getFullYear() &&
+  d1.getMonth() === d2.getMonth() &&
+  d1.getDate() === d2.getDate();
 
-  const events = tasks
-    .filter((task) => task.dueDate)
-    .map((task) => ({
-      id: task.id,
-      title: task.title,
-      date: parseISO(task.dueDate),
-      backgroundColor: task.completed ? '#2ecc71' : '#007bff',
-    }));
+const CalendarView = ({ tasks }) => {
+  const [date, setDate] = React.useState(new Date());
+
+  // Find tasks for the selected date
+  const tasksForDate = tasks.filter(
+    (task) =>
+      task.dueDate &&
+      isSameDay(new Date(task.dueDate), date)
+  );
 
   return (
-    <div className="calendar-container">
-      <h2>📅 Calendar View</h2>
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        events={events}
-        height="auto"
+    <div className="calendar-view">
+      <Calendar
+        onChange={setDate}
+        value={date}
+        tileClassName={({ date: tileDate }) => {
+          // Highlight days with tasks
+          const hasTask = tasks.some(
+            (task) =>
+              task.dueDate &&
+              isSameDay(new Date(task.dueDate), tileDate)
+          );
+          if (hasTask) return 'calendar-has-task';
+          if (isSameDay(new Date(), tileDate)) return 'react-calendar__tile--now';
+          return null;
+        }}
       />
+      <div style={{ textAlign: 'center', marginTop: '1rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+        Selected: {date.toLocaleDateString()}
+      </div>
+      <ul style={{ marginTop: '1rem', padding: 0, listStyle: 'none' }}>
+        {tasksForDate.length > 0 ? (
+          tasksForDate.map((task) => (
+            <li key={task.id} style={{
+              background: '#f5f5f5',
+              margin: '0.5rem 0',
+              borderRadius: '8px',
+              padding: '0.5rem',
+              color: '#333'
+            }}>
+              {task.title}
+            </li>
+          ))
+        ) : (
+          <li style={{ color: '#888' }}>No tasks for this date.</li>
+        )}
+      </ul>
     </div>
   );
 };
