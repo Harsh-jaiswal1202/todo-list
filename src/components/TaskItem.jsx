@@ -17,13 +17,16 @@ const TaskItem = ({ task, onEdit }) => {
   return (
     <div className="task-item">
       <div className="task-main">
-        <span
-          className="icon"
+        {/* Complete/Incomplete Toggle */}
+        <button
+          className="icon-btn"
           onClick={() => toggleComplete(task.id)}
-          title="Toggle complete"
+          title={task.completed ? "Mark as incomplete" : "Mark as complete"}
+          aria-label={task.completed ? "Mark as incomplete" : "Mark as complete"}
+          tabIndex={0}
         >
           {task.completed ? <FaCheckCircle color="#2ecc71" /> : <FaRegCircle />}
-        </span>
+        </button>
 
         <div className="task-details">
           <h3 className={task.completed ? 'completed' : ''}>{task.title}</h3>
@@ -54,8 +57,24 @@ const TaskItem = ({ task, onEdit }) => {
       </div>
 
       <div className="task-actions">
-        <FaEdit onClick={() => onEdit(task)} title="Edit" />
-        <FaTrash onClick={() => deleteTask(task.id)} title="Delete" />
+        <button
+          className="icon-btn"
+          onClick={() => onEdit(task)}
+          title="Edit"
+          aria-label="Edit"
+          tabIndex={0}
+        >
+          <FaEdit />
+        </button>
+        <button
+          className="icon-btn"
+          onClick={() => deleteTask(task.id)}
+          title="Delete"
+          aria-label="Delete"
+          tabIndex={0}
+        >
+          <FaTrash />
+        </button>
       </div>
     </div>
   );
